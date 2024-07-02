@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import "@/app/styles/index.scss";
 
 export const metadata: Metadata = {
-  title: "YACS",
+  title: "Yet Another Cloud Storage",
   description: "Yet another cloud storage",
 };
 
