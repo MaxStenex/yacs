@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import "@/app/styles/index.scss";
 
 export const metadata: Metadata = {
@@ -14,16 +13,7 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="en">
-      <body>
-        <header>
-          <Link href="/">Home</Link>
-          <br />
-          <Link href="/sign-in">Sign in</Link>
-          <br />
-          <Link href="/sign-up">Sign up</Link>
-        </header>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 };
