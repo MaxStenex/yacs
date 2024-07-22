@@ -1,16 +1,13 @@
 import React from "react";
-import Link from "next/link";
+import styles from "./header.module.scss";
+import { Logo } from "@/shared/ui";
 
 interface Props {}
 
 export const DashboardHeader: React.FC<Props> = () => {
   return (
-    <header>
-      <Link href="/dashboard">Home</Link>
-      <br />
-      <Link href="/sign-in">Sign in</Link>
-      <br />
-      <Link href="/sign-up">Sign up</Link>
+    <header className={styles.wrapper}>
+      <Logo />
     </header>
   );
 };

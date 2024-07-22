@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./dashboard-layout.module.scss";
 
 interface Props {
   children: React.ReactNode;
@@ -7,7 +8,7 @@ interface Props {
 
 export const DashboardLayout: React.FC<Props> = ({ children, header }) => {
   return (
-    <div>
+    <div className={styles.container}>
       {header}
       {children}
     </div>

@@ -1,0 +1,12 @@
+.wrapper {
+  font-weight: 700;
+  font-size: 36px;
+  letter-spacing: 5px;
+}
+
+.link {
+  color: white;
+  &:hover {
+    text-decoration: underline;
+  }
+}
