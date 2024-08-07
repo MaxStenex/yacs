@@ -1,12 +1,14 @@
 .wrapper {
-  font-weight: 700;
-  font-size: 36px;
   padding: 3px 5px;
   border: 1px solid white;
+  display: flex;
+  align-items: center;
 }
 
 .link {
   color: white;
   letter-spacing: 5px;
   margin-right: -5px;
+  font-weight: 700;
+  font-size: 36px;
 }

@@ -5,5 +5,5 @@ import { classNames } from "@/shared/lib";
 interface Props extends InputHTMLAttributes<HTMLInputElement> {}
 
 export const Input: React.FC<Props> = ({ ...rest }) => {
-  return <input className={classNames(styles.root, rest.className)} {...rest} />;
+  return <input {...rest} className={classNames(styles.root, rest.className)} />;
 };
