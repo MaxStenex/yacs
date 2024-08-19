@@ -1,0 +1,22 @@
+.root {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.ripple {
+  border-radius: 50%;
+  background-position: center;
+  transition: background 0.4s;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  &:active {
+    background-color: rgba(0, 0, 0, 1);
+    background-size: 100%;
+    transition: background 0s;
+  }
+}
