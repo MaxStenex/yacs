@@ -1,7 +1,8 @@
+import { UserProfilePopover } from "@/features/open-profile";
+import { PreferencesPopover } from "@/features/user-preferences";
+import { Input, Logo } from "@/shared/ui";
 import React from "react";
 import styles from "./header.module.scss";
-import { Input, Logo } from "@/shared/ui";
-import { SettingsIcon } from "@/shared/assets/icons";
 
 interface Props {}
 
@@ -15,8 +16,8 @@ export const DashboardHeader: React.FC<Props> = () => {
         </div>
       </div>
       <div className={styles.settingsWrapper}>
-        <SettingsIcon />
-        <div>Profile btn</div>
+        <PreferencesPopover />
+        <UserProfilePopover />
       </div>
     </header>
   );
