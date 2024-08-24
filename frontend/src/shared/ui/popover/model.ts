@@ -1,8 +1,13 @@
 import { createContext, useContext } from "react";
 
+export type PopoverContentPosition = null | {
+  x: number;
+  y: number;
+};
+
 interface PopoverContextState {
-  isOpened: boolean;
-  toggleIsOpened: () => void;
+  contentPosition: PopoverContentPosition;
+  changeContentPosition: (p: PopoverContentPosition) => void;
 }
 
 export const PopoverContext = createContext<PopoverContextState | null>(null);
