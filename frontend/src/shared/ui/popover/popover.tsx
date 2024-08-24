@@ -1,7 +1,8 @@
 "use client";
-import React, { PropsWithChildren, cloneElement, useState } from "react";
+import React, { PropsWithChildren, cloneElement, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { PopoverContentPosition, PopoverContext, usePopoverContext } from "./model";
+import { useOutsideClick } from "@/shared/lib";
 
 interface Props extends PropsWithChildren {}
 
@@ -54,23 +55,35 @@ const PopoverTrigger: TriggerComponent = ({ children }) => {
 
 Popover.Trigger = PopoverTrigger;
 
-const PopoverContent: ContentComponent = ({ children }) => {
+export const PopoverContent: ContentComponent = ({ children }) => {
   const { contentPosition } = usePopoverContext();
 
   if (!contentPosition) return null;
+
+  return <PopoverContentBody>{children}</PopoverContentBody>;
+};
+
+Popover.Content = PopoverContent;
+
+const PopoverContentBody = ({ children }: PropsWithChildren) => {
+  const { contentPosition, changeContentPosition } = usePopoverContext();
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useOutsideClick(contentRef, () => {
+    changeContentPosition(null);
+  });
 
   return createPortal(
     <div
       style={{
         position: "absolute",
-        top: contentPosition.y,
-        left: contentPosition.x,
+        top: contentPosition!.y,
+        left: contentPosition!.x,
       }}
+      ref={contentRef}
     >
       {children}
     </div>,
     document.body
   );
 };
-
-Popover.Content = PopoverContent;
