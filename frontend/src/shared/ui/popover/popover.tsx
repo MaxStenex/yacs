@@ -1,8 +1,8 @@
 "use client";
 import React, { PropsWithChildren, cloneElement, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { PopoverContentPosition, PopoverContext, usePopoverContext } from "./model";
-import { useOutsideClick } from "@/shared/lib";
+import { PopoverTriggerPosition, PopoverContext, usePopoverContext } from "./model";
+import { useOutsideClick, useResizeObserver } from "@/shared/lib";
 
 interface Props extends PropsWithChildren {}
 
@@ -15,31 +15,31 @@ type PopoverComponent = React.FC<Props> & { Trigger: TriggerComponent } & {
 };
 
 export const Popover: PopoverComponent = ({ children }) => {
-  const [contentPosition, setContentPosition] = useState<PopoverContentPosition>(null);
+  const [triggerPosition, setTriggerPosition] = useState<PopoverTriggerPosition>(null);
 
-  const changeContentPosition = (pos: PopoverContentPosition) => {
-    setContentPosition(pos);
+  const changeTriggerPosition = (pos: PopoverTriggerPosition) => {
+    setTriggerPosition(pos);
   };
 
   return (
-    <PopoverContext.Provider value={{ contentPosition, changeContentPosition }}>
+    <PopoverContext.Provider value={{ triggerPosition, changeTriggerPosition }}>
       {children}
     </PopoverContext.Provider>
   );
 };
 
 const PopoverTrigger: TriggerComponent = ({ children }) => {
-  const { contentPosition, changeContentPosition } = usePopoverContext();
+  const { triggerPosition, changeTriggerPosition } = usePopoverContext();
 
   const toggleContentVisibility = (event: React.MouseEvent<HTMLElement>) => {
-    if (contentPosition) {
-      changeContentPosition(null);
+    if (triggerPosition) {
+      changeTriggerPosition(null);
       return;
     }
 
-    const { x, y, height } = event.currentTarget.getBoundingClientRect();
+    const { x, y, width, height } = event.currentTarget.getBoundingClientRect();
 
-    changeContentPosition({ x, y: y + height + 5 });
+    changeTriggerPosition({ x, y, width, height });
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -56,29 +56,45 @@ const PopoverTrigger: TriggerComponent = ({ children }) => {
 Popover.Trigger = PopoverTrigger;
 
 export const PopoverContent: ContentComponent = ({ children }) => {
-  const { contentPosition } = usePopoverContext();
+  const { triggerPosition } = usePopoverContext();
 
-  if (!contentPosition) return null;
+  if (!triggerPosition) return null;
 
   return <PopoverContentBody>{children}</PopoverContentBody>;
 };
 
 Popover.Content = PopoverContent;
 
+const GAP_BETWEEN_TRIGGER_AND_CONTENT = 5;
+const GAP_BETWEEN_DOCUMENT_BODY_AND_CONTENT = 5;
+
 const PopoverContentBody = ({ children }: PropsWithChildren) => {
-  const { contentPosition, changeContentPosition } = usePopoverContext();
+  const { triggerPosition, changeTriggerPosition } = usePopoverContext();
   const contentRef = useRef<HTMLDivElement>(null);
+  const { width: contentWidth } = useResizeObserver({
+    ref: contentRef,
+  });
+
+  const isContentFitInBody =
+    document.body.clientWidth -
+      GAP_BETWEEN_DOCUMENT_BODY_AND_CONTENT -
+      triggerPosition!.x -
+      contentWidth >
+    0;
 
   useOutsideClick(contentRef, () => {
-    changeContentPosition(null);
+    changeTriggerPosition(null);
   });
 
   return createPortal(
     <div
       style={{
         position: "absolute",
-        top: contentPosition!.y,
-        left: contentPosition!.x,
+        top:
+          triggerPosition!.y + triggerPosition!.height + GAP_BETWEEN_TRIGGER_AND_CONTENT,
+        left:
+          triggerPosition!.x +
+          (isContentFitInBody ? 0 : triggerPosition!.width - contentWidth),
       }}
       ref={contentRef}
     >
