@@ -2,7 +2,7 @@
 import React, { PropsWithChildren, cloneElement, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { PopoverTriggerPosition, PopoverContext, usePopoverContext } from "./model";
-import { useOutsideClick, useResizeObserver } from "@/shared/lib";
+import { useInitialSize, useOutsideClick, useResizeObserver } from "@/shared/lib";
 
 interface Props extends PropsWithChildren {}
 
@@ -71,7 +71,7 @@ const GAP_BETWEEN_DOCUMENT_BODY_AND_CONTENT = 5;
 const PopoverContentBody = ({ children }: PropsWithChildren) => {
   const { triggerPosition, changeTriggerPosition } = usePopoverContext();
   const contentRef = useRef<HTMLDivElement>(null);
-  const { width: contentWidth = 0 } = useResizeObserver({
+  const { width: contentWidth = 0 } = useInitialSize({
     ref: contentRef,
   });
 
