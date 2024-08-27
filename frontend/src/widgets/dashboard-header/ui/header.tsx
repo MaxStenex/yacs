@@ -1,4 +1,4 @@
-import { UserProfilePopover } from "@/features/open-profile";
+import { UserProfilePopover } from "@/features/user-profile";
 import { PreferencesPopover } from "@/features/user-preferences";
 import { Input, Logo } from "@/shared/ui";
 import React from "react";
