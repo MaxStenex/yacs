@@ -71,7 +71,7 @@ const GAP_BETWEEN_DOCUMENT_BODY_AND_CONTENT = 5;
 const PopoverContentBody = ({ children }: PropsWithChildren) => {
   const { triggerPosition, changeTriggerPosition } = usePopoverContext();
   const contentRef = useRef<HTMLDivElement>(null);
-  const { width: contentWidth } = useResizeObserver({
+  const { width: contentWidth = 0 } = useResizeObserver({
     ref: contentRef,
   });
 

@@ -6,12 +6,12 @@ interface Params {
 }
 
 interface Size {
-  width: number;
-  height: number;
+  width: number | undefined;
+  height: number | undefined;
 }
 
 export const useResizeObserver = ({ ref }: Params): Size => {
-  const [size, setSize] = useState<Size>({ width: 0, height: 0 });
+  const [size, setSize] = useState<Size>({ width: undefined, height: undefined });
 
   useEffect(() => {
     if (!ref.current) return;
