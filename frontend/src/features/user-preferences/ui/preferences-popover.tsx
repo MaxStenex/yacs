@@ -1,6 +1,8 @@
 "use client";
 import { SettingsIcon } from "@/shared/assets/icons";
-import { IconButton, Popover } from "@/shared/ui";
+import { IconButton, Popover, Typography } from "@/shared/ui";
+import styles from "./preferences-popover.module.scss";
+import { ThemeToggler } from "./theme-toggler";
 
 export const PreferencesPopover = () => {
   return (
@@ -10,7 +12,14 @@ export const PreferencesPopover = () => {
           <SettingsIcon />
         </IconButton>
       </Popover.Trigger>
-      <Popover.Content>Contentiwe</Popover.Content>
+      <Popover.Content>
+        <div className={styles.main}>
+          <Typography variant="h5">Settings</Typography>
+          <div className={styles.body}>
+            <ThemeToggler />
+          </div>
+        </div>
+      </Popover.Content>
     </Popover>
   );
 };
