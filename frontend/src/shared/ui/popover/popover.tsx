@@ -1,10 +1,16 @@
 "use client";
-import React, { PropsWithChildren, useState } from "react";
+import React, { useState } from "react";
 import { PopoverContext, PopoverTriggerPosition } from "./model";
 import { PopoverContent, PopoverContentComponent } from "./popover-content";
 import { PopoverTrigger, PopoverTriggerComponent } from "./popover-trigger";
 
-interface Props extends PropsWithChildren {}
+type ClosePopover = () => void;
+
+type ChildrenCallback = (params: { closePopover: ClosePopover }) => React.ReactNode;
+
+interface Props {
+  children: React.ReactNode | ChildrenCallback;
+}
 
 type PopoverComponent = React.FC<Props> & { Trigger: PopoverTriggerComponent } & {
   Content: PopoverContentComponent;
@@ -17,9 +23,13 @@ export const Popover: PopoverComponent = ({ children }) => {
     setTriggerPosition(pos);
   };
 
+  const closePopover: ClosePopover = () => {
+    setTriggerPosition(null);
+  };
+
   return (
     <PopoverContext.Provider value={{ triggerPosition, changeTriggerPosition }}>
-      {children}
+      {typeof children === "function" ? children({ closePopover }) : children}
     </PopoverContext.Provider>
   );
 };
