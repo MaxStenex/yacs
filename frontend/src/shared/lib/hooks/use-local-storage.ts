@@ -1,21 +1,22 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 
-type SaveValueFn = <T>(value: T) => void;
+type SaveValueFn<T> = (value: T) => void;
 
 type ClearValueFn = () => void;
 
 export const useLocalStorage = <T>(
   key: string,
   initialValue: T
-): [T, SaveValueFn, ClearValueFn] => {
-  const [value, setValue] = useState(initialValue);
+): [T, SaveValueFn<T>, ClearValueFn] => {
+  const [value, setValue] = useState<T>(initialValue);
 
-  const saveValue: SaveValueFn = useCallback(
+  const saveValue: SaveValueFn<T> = useCallback(
     (value) => {
       try {
         const deserializedValue = JSON.stringify(value);
         localStorage.setItem(key, deserializedValue);
+        setValue(value);
       } catch (error) {
         console.error(`Error in JSON.stringify with key: ${key}`, error);
       }

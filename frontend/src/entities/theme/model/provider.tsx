@@ -6,6 +6,7 @@ import {
   useContext,
   useState,
 } from "react";
+import { useLocalStorage } from "@/shared/lib";
 import { Theme } from "./types";
 
 interface ThemeContextState {
@@ -16,11 +17,14 @@ interface ThemeContextState {
 const ThemeContext = createContext<ThemeContextState | null>(null);
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, saveTheme] = useLocalStorage<Theme>("theme", "dark");
 
-  const changeTheme = useCallback((value: Theme) => {
-    setTheme(value);
-  }, []);
+  const changeTheme = useCallback(
+    (value: Theme) => {
+      saveTheme(value);
+    },
+    [saveTheme]
+  );
 
   return (
     <ThemeContext.Provider value={{ theme, changeTheme }}>
