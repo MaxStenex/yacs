@@ -1,13 +1,18 @@
 @import "./normalize.scss";
 
 :root {
-  @media (prefers-color-scheme: dark) {
-    body {
-      background-color: #1a1a1a;
-      color: white;
-    }
-  }
+  --text-color: #000;
+  --background-color: #d2d5db;
+}
 
+.app.dark {
+  --text-color: #fff;
+  --background-color: #1a1a1a;
+}
+
+.app {
   font-size: 14px;
   line-height: 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }

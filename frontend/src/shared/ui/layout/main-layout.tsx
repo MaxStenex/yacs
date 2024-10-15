@@ -1,12 +1,12 @@
 import React from "react";
-import styles from "./dashboard-layout.module.scss";
+import styles from "./main-layout.module.scss";
 
 interface Props {
   children: React.ReactNode;
   header: React.ReactNode;
 }
 
-export const DashboardLayout: React.FC<Props> = ({ children, header }) => {
+export const MainLayout: React.FC<Props> = ({ children, header }) => {
   return (
     <div className={styles.container}>
       {header}
