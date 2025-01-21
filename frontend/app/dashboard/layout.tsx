@@ -1,9 +1,8 @@
-import { MainLayout } from "@/shared/ui";
-import { DashboardHeader } from "@/widgets/dashboard-header";
 import React, { PropsWithChildren } from "react";
+import { DashboardLayout } from "@/widgets/dashboard-layout";
 
 const Layout = ({ children }: PropsWithChildren) => {
-  return <MainLayout header={<DashboardHeader />}>{children}</MainLayout>;
+  return <DashboardLayout>{children}</DashboardLayout>;
 };
 
 export default Layout;
