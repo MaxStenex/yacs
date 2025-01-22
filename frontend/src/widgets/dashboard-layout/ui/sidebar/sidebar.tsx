@@ -5,18 +5,18 @@ import styles from "./sidebar.module.scss";
 import { usePathname } from "next/navigation";
 import { classNames } from "@/shared/lib";
 
-type Link = {
+type SidebarLink = {
   text: string;
   href: string;
 };
 
-const links: Link[] = [
+const links: SidebarLink[] = [
   {
-    text: "Файлы",
+    text: "Files",
     href: "/dashboard",
   },
   {
-    text: "Корзина",
+    text: "Trash",
     href: "/trash",
   },
 ];
@@ -27,8 +27,8 @@ export const DashboardSidebar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.controlPanel}>
-        <button>Загрузить</button>
-        <button>Создать</button>
+        <button>Upload</button>
+        <button>Create</button>
       </div>
       <ul className={styles.links}>
         {links.map((l) => (
