@@ -1,0 +1,48 @@
+.container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 22px;
+}
+
+.pageSettings {
+}
+
+.fileList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.file {
+  width: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 7px;
+  padding: 10px;
+  border-radius: 7px;
+  transition: ease-in 0.1s;
+  cursor: pointer;
+  & img {
+    object-fit: contain;
+    user-select: none;
+  }
+  &:hover {
+    background-color: #585858;
+  }
+}
+
+.fileName {
+}
+
+.emptyFile {
+  flex: 1;
+}
