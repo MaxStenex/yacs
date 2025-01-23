@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "./sidebar.module.scss";
 import { usePathname } from "next/navigation";
 import { classNames } from "@/shared/lib";
+import { Button } from "@/shared/ui";
 
 type SidebarLink = {
   text: string;
@@ -27,8 +28,8 @@ export const DashboardSidebar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.controlPanel}>
-        <button>Upload</button>
-        <button>Create</button>
+        <Button>Upload</Button>
+        <Button>Create</Button>
       </div>
       <ul className={styles.links}>
         {links.map((l) => (
